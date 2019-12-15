@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +35,24 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.login-content {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.login-card {
+  height: 50vh;
+  width: 80vh;
+  background-color: rgb(240, 240, 240);
+  box-shadow: 5px 5px rgb(81, 81, 157);
+  border-width: 2px;
+  border-color: teal;
+  border-radius: 5px;
+}
+
+li {
+  display: inline;
 }
