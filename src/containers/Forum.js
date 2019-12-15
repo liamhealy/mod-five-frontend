@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import ForumCard from '../components/ForumCard';
 import ForumPost from '../components/ForumPost';
 import Container from '@material-ui/core/Container';
 
 class Forum extends Component{
 
     state = {
-        posts: null
+        posts: null,
+        viewingPost: false,
+        post: null
     }
     
     componentDidMount() {
@@ -16,18 +19,29 @@ class Forum extends Component{
         }))
     }
     
-    renderForumPosts() {
-        return this.state.posts.map(post => <ForumPost key={post.id} {...post} />)
+    renderForumCards = () => {
+        return this.state.posts.map(post => <ForumCard key={post.id} {...post} viewPost={this.viewForumPost} />)
         // console.log(this.state.posts)
+    }
+
+    viewForumPost = (post) => {
+        this.setState({
+            viewingPost: true,
+            post: post
+        })
     }
 
     render() {
         console.log(this.state.posts)
         return (
+            this.state.viewingPost
+            ?
+            <ForumPost />
+            :
             <Container maxWidth="lg" style={{marginTop: 50}}>
                 {this.state.posts !== null
                 ? 
-                this.renderForumPosts()
+                this.renderForumCards()
                 :
                 <h2>Nothing loaded!</h2>
                 }
