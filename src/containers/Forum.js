@@ -36,7 +36,7 @@ class Forum extends Component{
         return (
             this.state.viewingPost
             ?
-            <ForumPost />
+            <ForumPost post={this.state.post} />
             :
             <Container maxWidth="lg" style={{marginTop: 50}}>
                 {this.state.posts !== null
