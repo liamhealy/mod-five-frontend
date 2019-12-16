@@ -29,9 +29,6 @@ class MainContainer extends Component {
                     alignItems="center"
                     style={{}}
                 >
-                    {/* <Grid item xs={12}>
-                        <Paper>Content</Paper>
-                    </Grid> */}
                 </Grid>
                 <Forum />
             </div>

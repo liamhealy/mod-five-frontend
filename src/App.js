@@ -1,27 +1,67 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Login from './components/Login'
+import Login from './containers/Login';
 import { connect } from 'react-redux';
 import NavBar from './components/NavBar';
 import MainContainer from './containers/MainContainer';
 
+class App extends React.Component {
+  
+  state = {
+    currentUser: null
+  }
 
-function App(props) {
-  console.log(props.user)
-  return (
-    <div className="App">
-      {props.user
-        ? 
-        <>
-          <NavBar />
-          <MainContainer />
-        </>
-        :
-        <Login />
+  signIn = (user) => {
+    fetch(`http://localhost:3000/api/v1/users/${user.username}`)
+    .then(resp => resp.json())
+    .then(json => {
+      if (json.data) {
+        this.setState({
+          currentUser: json
+        })
+      } else {
+        // Display errors at some point
       }
-    </div>
-  );
+    })
+  }
+
+  signUp = (newUser) => {
+    fetch('http://localhost:3000/api/v1/users', {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "accept": "application/json"
+      },
+      body: JSON.stringify(newUser)
+    })
+    .then(resp => resp.json())
+    .then(json => {
+      if (json.data) {
+        this.setState({
+          currentUser: json
+        })
+      } else {
+        // Display errors at some point
+      }
+    })
+  }
+
+  render() {
+    console.log(this.state.currentUser)
+    return (
+      <div className="App">
+        {this.state.currentUser
+          ? 
+          <>
+            <NavBar />
+            <MainContainer />
+          </>
+          :
+          <Login handleSignUp={this.signUp} handleSignIn={this.signIn} />
+        }
+      </div>
+    );
+  }
 }
 
 function msp(state) {

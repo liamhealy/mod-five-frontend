@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ForumCard from '../components/ForumCard';
 import ForumPost from '../components/ForumPost';
 import Container from '@material-ui/core/Container';
+import { AwesomeButton } from "react-awesome-button";
+import 'react-awesome-button/dist/themes/theme-blue.css';
 
 class Forum extends Component{
 
@@ -21,7 +23,6 @@ class Forum extends Component{
     
     renderForumCards = () => {
         return this.state.posts.map(post => <ForumCard key={post.id} {...post} viewPost={this.viewForumPost} />)
-        // console.log(this.state.posts)
     }
 
     viewForumPost = (post) => {
@@ -38,17 +39,19 @@ class Forum extends Component{
             ?
             <ForumPost post={this.state.post} />
             :
-            <Container maxWidth="lg" style={{marginTop: 50}}>
-                {this.state.posts !== null
-                ? 
-                this.renderForumCards()
-                :
-                <h2>Nothing loaded!</h2>
-                }
-            </Container>
+            <>
+                <Container maxWidth="lg" style={{marginTop: 50}}>
+                    {this.state.posts !== null
+                    ?
+                    this.renderForumCards()
+                    :
+                    <h2>Loading...</h2>
+                    }
+                </Container>
+                <AwesomeButton type="secondary" size="small" style={{width: '280px', height: '40px', fontSize: '18px'}}>New Post</AwesomeButton>
+            </>
         )
     }
-
 }
 
 export default Forum

@@ -7,11 +7,10 @@ import TextField from '@material-ui/core/TextField';
 import { AwesomeButton } from "react-awesome-button";
 import 'react-awesome-button/dist/themes/theme-blue.css';
 
-class Login extends Component {
+class LoginForm extends Component {
 
     state = {
-        username: "",
-        password: ""
+        username: ""
     }
 
     handleChange = (e) => {
@@ -26,6 +25,7 @@ class Login extends Component {
         const user = this.state
         console.log(user)
         this.props.dispatch({type: "SIGN_IN", payload: this.state})
+        this.props.handleSignIn(this.state)
     }
     
     render() {
@@ -51,34 +51,21 @@ class Login extends Component {
                     </Grid>
                     <Grid item xs={6}>
                         <TextField id="outlined-basic" label="Username" variant="outlined" name="username" value={this.state.username} onChange={this.handleChange} />
-                    </Grid>   
-                    <Grid item xs={6}>
-                        <TextField type="password" id="outlined-basic" label="Password" variant="outlined" name="password" value={this.state.password} onChange={this.handleChange} />
-                    </Grid>   
+                    </Grid>      
                     <Grid item xs={6}>
                         <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}}>Login</AwesomeButton>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <AwesomeButton type="secondary" size="small" style={{width: '280px', height: '40px', fontSize: '18px'}} onPress={this.props.switchForm}>Create an Account</AwesomeButton>
                     </Grid>   
                 </Grid>
             </form>
         )
     }
-
-    // render() {
-    //     console.log(this.props.user)
-    //     return (
-    //         <div className="login-card">
-    //             <h4 style={{fontFamily: "'Roboto', sans-serif", color: 'black'}}>Twitch Dashboard</h4>
-    //             <h1 style={{fontSize: '100px', fontFamily: "'Roboto', sans-serif", color: 'black'}}>Login</h1>
-    //             <TextField id="filled-basic" label="Username" variant="filled" onChange={this.handleChange}/>
-    //             <br/>
-    //             <TextField id="filled-basic" label="Password" variant="filled" style={{marginTop: '2%'}}/>
-    //         </div>
-    //     )
-    // }
 }
 
 function msp(state) {
     return {user: state.user}
 }
 
-export default connect(msp)(Login)
+export default connect(msp)(LoginForm)
