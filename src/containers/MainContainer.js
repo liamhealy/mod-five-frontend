@@ -30,7 +30,7 @@ class MainContainer extends Component {
                     style={{}}
                 >
                 </Grid>
-                <Forum />
+                <Forum currentUser={this.props.currentUser} />
             </div>
         )
     }

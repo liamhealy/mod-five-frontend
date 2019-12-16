@@ -6,8 +6,8 @@ import SignUpForm from '../components/SignUpForm';
 class Login extends Component {
 
     state = {
-        signingUp: true,
-        signingIn: false
+        signingUp: false,
+        signingIn: true
     }
 
     handleChange = (e) => {

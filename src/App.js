@@ -54,7 +54,7 @@ class App extends React.Component {
           ? 
           <>
             <NavBar />
-            <MainContainer />
+            <MainContainer currentUser={this.state.currentUser} />
           </>
           :
           <Login handleSignUp={this.signUp} handleSignIn={this.signIn} />

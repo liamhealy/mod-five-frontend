@@ -56,3 +56,7 @@
 li {
   display: inline;
 }
+
+.markdown-tips {
+  list-style-type: disc;
+}
