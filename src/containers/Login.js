@@ -9,29 +9,9 @@ class Login extends Component {
         signingUp: false,
         signingIn: true
     }
-
-    handleChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault()
-        e.persist()
-        const user = this.state
-        console.log(user)
-        this.props.dispatch({type: "SIGN_IN", payload: this.state})
-    }
-
-    switchForm = () => {
-        this.setState({
-            signingUp: !this.state.signingUp,
-            signingIn: !this.state.signingIn
-        })
-    }
     
     render() {
+        console.log(this.props)
         return (
             <>
                 {this.state.signingUp

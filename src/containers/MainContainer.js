@@ -1,37 +1,133 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import { AwesomeButton } from "react-awesome-button";
-import 'react-awesome-button/dist/themes/theme-eric.css';
+import 'react-awesome-button/dist/themes/theme-blue.css';
 import Forum from './Forum';
+import NavBar from '../components/NavBar';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
+import LoginForm from '../components/LoginForm';
+import SignUpForm from '../components/SignUpForm';
 
 class MainContainer extends Component {
 
-    render() {
+    state = {
+        currentUser: null,
+        post: null
+    }
+
+    signIn = (user) => {
+        fetch(`http://localhost:3000/api/v1/users/${user.username}`)
+        .then(resp => resp.json())
+        .then(json => {
+            if (json.data) {
+                this.setState({
+                    currentUser: json
+                })
+            } else {
+            // Display errors at some point
+            }
+        })
+    }
+    
+    signUp = (newUser) => {
+        fetch('http://localhost:3000/api/v1/users', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                "accept": "application/json"
+            },
+            body: JSON.stringify(newUser)
+        })
+        .then(resp => resp.json())
+        .then(json => {
+            if (json.data) {
+                this.setState({
+                    currentUser: json
+                })
+            } else {
+            // Display errors at some point
+            }
+        })
+    }
+
+    renderLinks = () => {
         return (
-            <div style={{textAlign: 'center'}}>
-                <ul style={{listStyle: 'none'}}>
-                    <li style={{margin: 20}}>
-                        <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}}>Streams</AwesomeButton>
-                    </li>
-                    <li style={{margin: 20}}>
-                        <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}}>Games</AwesomeButton>
-                    </li>
-                    <li style={{margin: 20}}>
-                        <AwesomeButton type="secondary" size="large" style={{height: '60px', fontSize: '24px'}}>Forum</AwesomeButton>
-                    </li>
-                </ul>
-                <Grid
-                    container
-                    spacing={3}
-                    direction="column"
-                    alignItems="center"
-                    style={{}}
-                >
-                </Grid>
-                <Forum currentUser={this.props.currentUser} />
-            </div>
+            <ul style={{listStyle: 'none'}}>
+                <li style={{margin: 20}}>
+                    <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}}>Streams</AwesomeButton>
+                </li>
+                <li style={{margin: 20}}>
+                    <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}}>Games</AwesomeButton>
+                </li>
+                <li style={{margin: 20}}>
+                    <AwesomeButton type="secondary" size="large" style={{height: '60px', fontSize: '24px'}}>Forum</AwesomeButton>
+                </li>
+            </ul>
+        )
+    }
+
+    renderLogin = () => {
+        if (this.state.currentUser) {
+            return <Redirect to="/forum" />
+        }
+
+        return <LoginForm handleSignIn={this.signIn} />
+    }
+
+    renderSignUp = () => {
+        if (this.state.currentUser) {
+            return <Redirect to="/forum" />
+        }
+
+        return <SignUpForm handleSignUp={this.signUp} />
+    }
+
+    renderForum = () => {
+        return (
+            <>
+                <NavBar currentUser={this.state.currentUser} />
+                <Forum currentUser={this.state.currentUser} />
+            </>
+        )
+    }
+
+    render() {
+        console.log(this.state)
+        return (
+            <>
+                {/* <NavBar />
+                <div style={{textAlign: 'center'}}>
+                    <ul style={{listStyle: 'none'}}>
+                        <li style={{margin: 20}}>
+                            <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}}>Streams</AwesomeButton>
+                        </li>
+                        <li style={{margin: 20}}>
+                            <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}}>Games</AwesomeButton>
+                        </li>
+                        <li style={{margin: 20}}>
+                            <AwesomeButton type="secondary" size="large" style={{height: '60px', fontSize: '24px'}}>Forum</AwesomeButton>
+                        </li>
+                    </ul>
+                    <Grid
+                        container
+                        spacing={3}
+                        direction="column"
+                        alignItems="center"
+                        style={{}}
+                    >
+                    </Grid>
+                    <Forum currentUser={this.props.currentUser} />
+                </div> */}
+                <div>
+                    <Redirect to="/forum" />
+                    <Switch>
+                        <Route exact path="/login" render={this.renderLogin} />
+                        <Route exact path="/signup" render={this.renderSignUp} />
+                        <Route exact path="/forum" render={this.renderForum} />
+                        <Route exact path="/forum/:post" render={this.renderForum} />
+                    </Switch>
+                </div>
+            </>
         )
     }
 
@@ -41,4 +137,4 @@ function msp(state) {
     return {user: state.user}
 }
 
-export default connect(msp)(MainContainer)
+export default connect(msp)(withRouter(MainContainer))

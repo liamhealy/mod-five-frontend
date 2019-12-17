@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { AwesomeButton } from "react-awesome-button";
 import 'react-awesome-button/dist/themes/theme-eric.css';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 export default function ForumCard(props) {
   const classes = useStyles();
   let user = props.attributes.user
-  console.log(user)
+  console.log(props)
   return (
     <div className={classes.root}>
       <Grid container spacing={8}>
@@ -41,7 +42,9 @@ export default function ForumCard(props) {
             </Typography>
             <Typography variant="h6" component="h6" gutterBottom>
                 {props.attributes.description}
-            <AwesomeButton type="primary" size="small" style={{fontSize: '24px', float: 'right'}} onPress={() => props.viewPost(props)}>View</AwesomeButton>
+              {/* <Link to={`/forum/${post.title}`}> */}
+                <AwesomeButton type="primary" size="small" style={{fontSize: '24px', float: 'right'}} onPress={() => props.viewPost(props)}>View</AwesomeButton>
+              {/* </Link> */}
             </Typography>
           </Paper>
         </Grid>

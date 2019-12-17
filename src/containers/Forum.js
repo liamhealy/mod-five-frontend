@@ -6,12 +6,15 @@ import { AwesomeButton } from "react-awesome-button";
 import 'react-awesome-button/dist/themes/theme-blue.css';
 import CreateForumPost from '../components/CreateForumPost';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 
 class Forum extends Component{
 
     state = {
         posts: null,
-        status: "index",
+        // status: "index",
         post: null
     }
     
@@ -24,8 +27,8 @@ class Forum extends Component{
     }
 
     renderCreateForm = () => {
-        this.setState({
-            status: "create"
+        this.props.history.push({
+            pathname: '/forum/new'
         })
     }
     
@@ -35,9 +38,11 @@ class Forum extends Component{
 
     viewForumPost = (post) => {
         this.setState({
-            status: "show",
+            // status: "show",
             post: post
-        })
+        }, () => this.props.history.push({
+            pathname: `/forum/${this.state.post.attributes.title}`
+        }))
     }
 
     submitNewPost = (post) => {
@@ -51,40 +56,52 @@ class Forum extends Component{
         })
         .then(resp => resp.json())
         .then(json => this.setState({
-            status: "show",
+            // status: "show",
+            posts: [...this.state.posts, json.data],
             post: json.data
         }))
+        .then(() => {
+            this.props.history.push({
+                pathname: `/forum`
+            })
+            this.getDisplayContent()
+        })
     }
 
     getDisplayContent = () => {
-        switch(this.state.status) {
-            case "show":
-                return <ForumPost post={this.state.post} />
-            case "create":
-                return <CreateForumPost currentUser={this.props.currentUser} handleSubmit={this.submitNewPost} />
-            default:
-                return (
-                    <>
-                        <Container maxWidth="lg" style={{marginTop: 50}}>
-                            {this.state.posts !== null
-                            ?
-                            this.renderForumCards()
-                            :
-                            <CircularProgress />
-                            }
-                        </Container>
-                        <AwesomeButton type="secondary" size="small" style={{ marginTop: 20, width: '280px', height: '40px', fontSize: '18px'}} onPress={this.renderCreateForm}>New Post</AwesomeButton>
-                    </>
-                )
-        }
+        console.log("made it")
+        return (
+            <>
+                <Container maxWidth="lg" style={{marginTop: 50}}>
+                    {this.state.posts !== null
+                    ?
+                    this.renderForumCards()
+                    :
+                    <CircularProgress />
+                    }
+                </Container>
+                {this.props.currentUser 
+                ?
+                <AwesomeButton type="secondary" size="small" style={{ marginTop: 20, width: '280px', height: '40px', fontSize: '18px'}} onPress={this.renderCreateForm}>New Post</AwesomeButton>
+                :
+                null
+                }
+            </>
+        )
     }
 
     render() {
-        console.log(this.state.post)
+        console.log(this.props)
         return (
-            this.getDisplayContent()
+            <div>
+                <Switch>
+                    <Route exact path="/forum" render={() => this.getDisplayContent()} />
+                    <Route exact path="/forum/new" render={() => <CreateForumPost currentUser={this.props.currentUser} handleSubmit={this.submitNewPost} />} />
+                    <Route exact path="/forum/:post" render={() => <ForumPost post={this.state.post} />} />
+                </Switch>
+            </div>
         )
     }
 }
 
-export default Forum
+export default withRouter(Forum)
