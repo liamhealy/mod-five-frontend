@@ -35,7 +35,6 @@ class SignUpForm extends Component {
     }
     
     render() {
-        console.log(this.state)
         return (
             <>
             <form onSubmit={this.handleSubmit}>

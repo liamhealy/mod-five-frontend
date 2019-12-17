@@ -92,32 +92,8 @@ class MainContainer extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <>
-                {/* <NavBar />
-                <div style={{textAlign: 'center'}}>
-                    <ul style={{listStyle: 'none'}}>
-                        <li style={{margin: 20}}>
-                            <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}}>Streams</AwesomeButton>
-                        </li>
-                        <li style={{margin: 20}}>
-                            <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}}>Games</AwesomeButton>
-                        </li>
-                        <li style={{margin: 20}}>
-                            <AwesomeButton type="secondary" size="large" style={{height: '60px', fontSize: '24px'}}>Forum</AwesomeButton>
-                        </li>
-                    </ul>
-                    <Grid
-                        container
-                        spacing={3}
-                        direction="column"
-                        alignItems="center"
-                        style={{}}
-                    >
-                    </Grid>
-                    <Forum currentUser={this.props.currentUser} />
-                </div> */}
                 <div>
                     <Redirect to="/forum" />
                     <Switch>

@@ -23,14 +23,11 @@ class LoginForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault()
         e.persist()
-        const user = this.state
-        console.log(user)
         this.props.dispatch({type: "SIGN_IN", payload: this.state})
         this.props.handleSignIn(this.state)
     }
 
     switchForm = () => {
-        console.log(this.props)
         this.props.history.push({
             pathname: '/signup'
         })

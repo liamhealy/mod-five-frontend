@@ -15,13 +15,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Redirect } from 'react-router-dom';
 
-class CreateForumPost extends Component {
+class EditForumPost extends Component {
 
     state = {
         user_id: this.props.currentUser.data.id,
-        title: "",
-        description: "",
-        body: "",
+        title: this.props.post.attributes.title,
+        description: this.props.post.attributes.description,
+        body: this.props.post.attributes.body
     }
 
     handleChange = (e) => {
@@ -52,8 +52,8 @@ class CreateForumPost extends Component {
                                 <Typography variant="h4" component="h4">
                                     New Forum Post
                                 </Typography>
-                                <TextField id="outlined-basic" label="Title" variant="outlined" name="title" style={{margin: 20}} onChange={this.handleChange} /><br />
-                                <TextField id="outlined-basic" label="Give us a short description" variant="outlined" name="description" style={{margin: 20, width: '80%'}} onChange={this.handleChange} />
+                                <TextField id="outlined-basic" label="Title" variant="outlined" name="title" value={this.state.title} style={{margin: 20}} onChange={this.handleChange} /><br />
+                                <TextField id="outlined-basic" label="Give us a short description" variant="outlined" value={this.state.description} name="description" style={{margin: 20, width: '80%'}} onChange={this.handleChange} />
                                 <Typography variant="h6" component="h6">
                                     Body
                                 </Typography>
@@ -112,4 +112,4 @@ class CreateForumPost extends Component {
 
 }
 
-export default CreateForumPost
+export default EditForumPost
