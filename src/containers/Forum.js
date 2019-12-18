@@ -42,7 +42,6 @@ class Forum extends Component{
     }
 
     submitNewPost = (post) => {
-     
         fetch ('http://localhost:3000/api/v1/posts', {
             method: "POST",
             headers: {
@@ -58,12 +57,44 @@ class Forum extends Component{
         }, () => this.handleRedirect()))
     }
 
-    handleRedirect = () => {
-        this.props.history.push("/forum")
+    deletePost = (post) => {
+        fetch (`http://localhost:3000/api/v1/posts/${post.id}`, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+                "accept": "application/json"
+            }        
+        })
+        .then(resp => resp.json())
+        .then(json => this.setState({
+            posts: this.state.posts.filter(p => p.attributes.id !== post.id)
+        }, () => this.handleRedirect()))
     }
 
+    updatePost = (post, id) => {
+        fetch (`http://localhost:3000/api/v1/posts/${id}`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+                "accept": "application/json"
+            },
+            body: JSON.stringify(post)
+        })
+        .then(resp => resp.json())
+        .then(json => this.setState({
+            post: [...this.state.posts.filter(p => p.attributes.id !== id), post]      
+        }, () => this.handleRedirect())
+        )
+    }
+
+    handleRedirect = () => {
+        this.setState({
+            post: null
+        }, () => this.props.history.push("/forum"))
+    }
+
+
     getDisplayContent = () => {
-        
         return (
             <>
                 <Container maxWidth="lg" style={{marginTop: 50}}>
@@ -98,7 +129,7 @@ class Forum extends Component{
                             {this.getDisplayContent()}
                         </Route>
                         <Route path="/forum/:post" render={() => {
-                            return <ForumPost currentUser={this.props.currentUser} post={this.state.post} />    
+                            return <ForumPost currentUser={this.props.currentUser} post={this.state.post} handleRedirect={this.handleRedirect} handleDelete={this.deletePost} handleUpdate={this.updatePost} />    
                         }} />
                     </Switch>
                 </div>

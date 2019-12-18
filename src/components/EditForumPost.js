@@ -38,10 +38,11 @@ class EditForumPost extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.handleSubmit(this.state)
+        this.props.handleSubmit(this.state, this.props.id)
     }
 
     renderContent = () => {
+        console.log(this.props)
         return (
             <Container maxWidth="lg" style={{marginTop: 50}}>
                 <Grid container spacing={8}>
