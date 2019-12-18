@@ -13,6 +13,7 @@ import 'react-awesome-button/dist/themes/theme-eric.css';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { withRouter } from 'react-router-dom';
 
 class CreateForumPost extends Component {
 
@@ -36,11 +37,24 @@ class CreateForumPost extends Component {
     }
 
     handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.handleSubmit(this.state)
+        e.preventDefault()
+        fetch ('http://localhost:3000/api/v1/posts', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                "accept": "application/json"
+            },
+            body: JSON.stringify(this.state)
+        })
+        .then(resp => resp.json())
+        .then(json => {
+            this.props.viewForumPost(json.data.attributes)
+            // console.log()
+        })
     }
 
     render() {
+        console.log("inside create forum", this.props.currentUser)
         return (
             <Container maxWidth="lg" style={{marginTop: 50}}>
                 <Grid container spacing={8}>
@@ -50,8 +64,8 @@ class CreateForumPost extends Component {
                                 <Typography variant="h4" component="h4">
                                     New Forum Post
                                 </Typography>
-                                <TextField id="outlined-basic" label="Title" variant="outlined" name="title" style={{margin: 20}} onChange={this.handleChange} /><br />
-                                <TextField id="outlined-basic" label="Give us a short description" variant="outlined" name="description" style={{margin: 20, width: '80%'}} onChange={this.handleChange} />
+                                <TextField id="outlined-basic" label="Title" variant="outlined" name="title" value={this.state.title} style={{margin: 20}} onChange={this.handleChange} /><br />
+                                <TextField id="outlined-basic" label="Give us a short description" variant="outlined" name="description" value={this.state.description} style={{margin: 20, width: '80%'}} onChange={this.handleChange} />
                                 <Typography variant="h6" component="h6">
                                     Body
                                 </Typography>

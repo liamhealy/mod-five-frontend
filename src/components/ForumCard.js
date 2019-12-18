@@ -19,7 +19,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function ForumCard(props) {
   const classes = useStyles();
-  let user = props.attributes.user
+  let user = props.post.attributes.user
+  let post = props.post.attributes
   return (
     <div className={classes.root}>
       <Grid container spacing={8}>
@@ -36,11 +37,11 @@ export default function ForumCard(props) {
         <Grid item xs={8}>
           <Paper className={classes.paper} style={{textAlign: 'left', boxShadow: '5px 5px #d0b400'}}>
             <Typography variant="h5" component="h5" gutterBottom>
-                {props.attributes.title}
+                {post.title}
             </Typography>
             <Typography variant="h6" component="h6" gutterBottom>
-                {props.attributes.description}
-                <AwesomeButton type="primary" size="small" style={{fontSize: '24px', float: 'right'}} onPress={() => props.viewPost(props.attributes)}>View</AwesomeButton>
+                {post.description}
+                <AwesomeButton type="primary" size="small" style={{fontSize: '24px', float: 'right'}} onPress={() => props.viewForumPost(post)}>View</AwesomeButton>
             </Typography>
           </Paper>
         </Grid>

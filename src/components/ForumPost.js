@@ -39,9 +39,9 @@ class ForumPost extends Component {
             if (this.props.currentUser.data.id == this.state.post.user_id) {
                 return (
                     <>
-                        {/* <Link to={`/forum`}> */}
-                        <AwesomeButton type="secondary" size="small" style={{fontSize: '24px', margin: 30, width: '200px' }} onPress={this.props.handleRedirect} >Back to forum</AwesomeButton>
-                        {/* </Link> */}
+                        <Link to={`/forum`}>
+                            <AwesomeButton type="secondary" size="small" style={{fontSize: '24px', margin: 30, width: '200px' }} >Back to forum</AwesomeButton>
+                        </Link>
                         <Link to={`/forum/${this.state.post.id}/edit`}>
                             <AwesomeButton type="secondary" size="medium" style={{fontSize: '24px', margin: 30 }}>Edit</AwesomeButton>
                         </Link>
@@ -63,14 +63,14 @@ class ForumPost extends Component {
             <Container maxWidth="md" style={{marginTop: 50, textAlign: 'left'}}>
                 {this.renderActionButtons()}
                 <Typography variant="h3" component="h3" gutterBottom>
-                    {this.state.post.title}
+                    {this.props.post.title}
                 </Typography>
                 <Typography variant="h5" component="h5" gutterBottom>
-                    {this.state.post.description}
+                    {this.props.post.description}
                 </Typography>
                 <Paper style={{ border: "5px solid #d0b400"}}>
                     <article className="markdown-body" style={{margin: 20, fontSize: 26}}>
-                        <ReactMarkdown source={this.state.post.body} renderers={{code: CodeBlock}}/>
+                        <ReactMarkdown source={this.props.post.body} renderers={{code: CodeBlock}}/>
                     </article>
                 </Paper>
             </Container>
@@ -84,14 +84,7 @@ class ForumPost extends Component {
     render() {
         return (
             <>
-                <Route exact path="/forum/:post/edit" render={() => {
-                    return this.renderEditForm()
-                }} 
-                />
-                <Route exact path="/forum/:post" render={() => {
-                    return this.renderForumPost()
-                }}
-                />
+                {this.renderForumPost()}
             </>
         )
     }

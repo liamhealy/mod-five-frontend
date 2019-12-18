@@ -28,34 +28,24 @@ class Forum extends Component{
     }
     
     renderForumCards = () => {
-        return this.state.posts.map(post => <ForumCard key={post.id} {...post} routerProps={this.props.routerProps} viewPost={this.viewForumPost} />)
+        return this.state.posts.map(post => <ForumCard key={post.id} post={post} routerProps={this.props.routerProps} viewForumPost={this.props.viewForumPost} />)
     }
 
-    viewForumPost = (post) => {
-        this.setState({
-            post: post
-        }, () => {
-            this.props.history.push({
-                pathname: `/forum/${this.state.post.id}`
-            })
-        })
-    }
-
-    submitNewPost = (post) => {
-        fetch ('http://localhost:3000/api/v1/posts', {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                "accept": "application/json"
-            },
-            body: JSON.stringify(post)
-        })
-        .then(resp => resp.json())
-        .then(json => this.setState({
-            posts: [...this.state.posts, json.data],
-            post: json.data
-        }, () => this.handleRedirect()))
-    }
+    // submitNewPost = (post) => {
+    //     fetch ('http://localhost:3000/api/v1/posts', {
+    //         method: "POST",
+    //         headers: {
+    //             "content-type": "application/json",
+    //             "accept": "application/json"
+    //         },
+    //         body: JSON.stringify(post)
+    //     })
+    //     .then(resp => resp.json())
+    //     .then(json => this.setState({
+    //         posts: [...this.state.posts, json.data],
+    //         post: json.data
+    //     }, () => this.handleRedirect()))
+    // }
 
     deletePost = (post) => {
         fetch (`http://localhost:3000/api/v1/posts/${post.id}`, {
@@ -63,7 +53,7 @@ class Forum extends Component{
             headers: {
                 "content-type": "application/json",
                 "accept": "application/json"
-            }        
+            }
         })
         .then(resp => resp.json())
         .then(json => this.setState({
@@ -121,7 +111,7 @@ class Forum extends Component{
         return (
             <>
                 <div>
-                    <Switch>
+                    {/* <Switch>
                         <Route exact path="/forum/new" >
                             {this.renderCreateForm()}
                         </Route>
@@ -131,7 +121,8 @@ class Forum extends Component{
                         <Route path="/forum/:post" render={() => {
                             return <ForumPost currentUser={this.props.currentUser} post={this.state.post} handleRedirect={this.handleRedirect} handleDelete={this.deletePost} handleUpdate={this.updatePost} />    
                         }} />
-                    </Switch>
+                    </Switch> */}
+                    {this.getDisplayContent()}
                 </div>
             </>
         )
