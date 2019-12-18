@@ -9,6 +9,7 @@ import LoginForm from '../components/LoginForm';
 import SignUpForm from '../components/SignUpForm';
 import ForumPost from '../components/ForumPost';
 import CreateForumPost from '../components/CreateForumPost';
+import EditForumPost from '../components/EditForumPost';
 
 class MainContainer extends Component {
 
@@ -104,6 +105,10 @@ class MainContainer extends Component {
 
     renderCreateForm = (routerProps) => {
         return <CreateForumPost currentUser={this.state.currentUser} viewForumPost={this.viewForumPost} routerProps={routerProps} />
+    }
+
+    renderEditForm = (routerProps) => {
+        return <EditForumPost currentUser={this.state.currentUser} viewForumPost={this.viewForumPost} post={this.state.post} routerProps={routerProps} />
     }
 
     render() {

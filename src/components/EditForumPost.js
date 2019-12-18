@@ -19,9 +19,9 @@ class EditForumPost extends Component {
 
     state = {
         user_id: this.props.currentUser.data.id,
-        title: this.props.title,
-        description: this.props.description,
-        body: this.props.body
+        title: this.props.post.title,
+        description: this.props.post.description,
+        body: this.props.post.body
     }
 
     handleChange = (e) => {
@@ -38,7 +38,16 @@ class EditForumPost extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.handleSubmit(this.state, this.props.id)
+        fetch (`http://localhost:3000/api/v1/posts/${this.props.post.id}`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+                "accept": "application/json"
+            },
+            body: JSON.stringify(this.state)
+        })
+        .then(resp => resp.json())
+        .then(json => this.props.viewForumPost(json.data.attributes))
     }
 
     renderContent = () => {

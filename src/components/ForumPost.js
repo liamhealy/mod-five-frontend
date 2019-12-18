@@ -48,6 +48,12 @@ class ForumPost extends Component {
                         <AwesomeButton type="secondary" size="medium" style={{fontSize: '24px', margin: 30 }} onPress={() => this.props.handleDelete(this.state.post)}>Delete</AwesomeButton>
                     </>
                 )
+            } else {
+                return (
+                    <Link to={`/forum`}>
+                        <AwesomeButton type="secondary" size="small" style={{fontSize: '24px', margin: 30, width: '200px' }}>Back to forum</AwesomeButton>
+                    </Link>
+                )    
             }
         } else {
             return (

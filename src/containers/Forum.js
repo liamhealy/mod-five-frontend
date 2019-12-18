@@ -61,21 +61,21 @@ class Forum extends Component{
         }, () => this.handleRedirect()))
     }
 
-    updatePost = (post, id) => {
-        fetch (`http://localhost:3000/api/v1/posts/${id}`, {
-            method: "PATCH",
-            headers: {
-                "content-type": "application/json",
-                "accept": "application/json"
-            },
-            body: JSON.stringify(post)
-        })
-        .then(resp => resp.json())
-        .then(json => this.setState({
-            post: [...this.state.posts.filter(p => p.attributes.id !== id), post]      
-        }, () => this.handleRedirect())
-        )
-    }
+    // updatePost = (post, id) => {
+    //     fetch (`http://localhost:3000/api/v1/posts/${id}`, {
+    //         method: "PATCH",
+    //         headers: {
+    //             "content-type": "application/json",
+    //             "accept": "application/json"
+    //         },
+    //         body: JSON.stringify(post)
+    //     })
+    //     .then(resp => resp.json())
+    //     .then(json => this.setState({
+    //         post: [...this.state.posts.filter(p => p.attributes.id !== id), post]      
+    //     }, () => this.handleRedirect())
+    //     )
+    // }
 
     handleRedirect = () => {
         this.setState({
