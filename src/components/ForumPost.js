@@ -24,6 +24,18 @@ class ForumPost extends Component {
         .then(json => this.setState({ post: json.post }))
     }
 
+    deletePost = (post) => {
+        fetch (`http://localhost:3000/api/v1/posts/${post.id}`, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+                "accept": "application/json"
+            }
+        })
+        .then(resp => resp.json())
+        .then(() => this.props.history.push("/forum"))
+    }
+
     handleRedirect = () => {
         this.props.history.push(`/forum/${this.state.post.id}`)
     }
@@ -45,7 +57,7 @@ class ForumPost extends Component {
                         <Link to={`/forum/${this.state.post.id}/edit`}>
                             <AwesomeButton type="secondary" size="medium" style={{fontSize: '24px', margin: 30 }}>Edit</AwesomeButton>
                         </Link>
-                        <AwesomeButton type="secondary" size="medium" style={{fontSize: '24px', margin: 30 }} onPress={() => this.props.handleDelete(this.state.post)}>Delete</AwesomeButton>
+                        <AwesomeButton type="secondary" size="medium" style={{fontSize: '24px', margin: 30 }} onPress={() => this.deletePost(this.state.post)}>Delete</AwesomeButton>
                     </>
                 )
             } else {

@@ -53,7 +53,6 @@ class CreateForumPost extends Component {
     }
 
     render() {
-        console.log("inside create forum", this.props.currentUser)
         return (
             <Container maxWidth="lg" style={{marginTop: 50}}>
                 <Grid container spacing={8}>

@@ -112,7 +112,6 @@ class MainContainer extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <>
                     <NavBar currentUser={this.state.currentUser} />

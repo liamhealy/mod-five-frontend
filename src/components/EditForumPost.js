@@ -51,7 +51,6 @@ class EditForumPost extends Component {
     }
 
     renderContent = () => {
-        console.log(this.props)
         return (
             <Container maxWidth="lg" style={{marginTop: 50}}>
                 <Grid container spacing={8}>
