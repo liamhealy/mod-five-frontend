@@ -2,17 +2,16 @@ import React from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 import MainContainer from './containers/MainContainer';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 class App extends React.Component {
-  
-  state = {
-    currentUser: null
-  }
 
   render() {
     return (
       <div className="App">
-        <MainContainer currentUser={this.state.currentUser} />
+        <Router>
+          <MainContainer />
+        </Router>
       </div>
     );
   }

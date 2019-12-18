@@ -13,7 +13,6 @@ import 'react-awesome-button/dist/themes/theme-eric.css';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Redirect } from 'react-router-dom';
 
 class CreateForumPost extends Component {
 
@@ -42,7 +41,6 @@ class CreateForumPost extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <Container maxWidth="lg" style={{marginTop: 50}}>
                 <Grid container spacing={8}>

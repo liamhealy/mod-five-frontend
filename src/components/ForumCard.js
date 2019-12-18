@@ -40,7 +40,7 @@ export default function ForumCard(props) {
             </Typography>
             <Typography variant="h6" component="h6" gutterBottom>
                 {props.attributes.description}
-                <AwesomeButton type="primary" size="small" style={{fontSize: '24px', float: 'right'}} onPress={() => props.viewPost(props)}>View</AwesomeButton>
+                <AwesomeButton type="primary" size="small" style={{fontSize: '24px', float: 'right'}} onPress={() => props.viewPost(props.attributes)}>View</AwesomeButton>
             </Typography>
           </Paper>
         </Grid>

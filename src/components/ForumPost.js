@@ -5,12 +5,14 @@ import Container from '@material-ui/core/Container';
 import CodeBlock from './CodeBlock';
 import { AwesomeButton } from "react-awesome-button";
 import 'react-awesome-button/dist/themes/theme-eric.css';
-import { Switch, Route, Link, withRouter } from 'react-router-dom';
+import { Route, Link, withRouter } from 'react-router-dom';
+import EditForumPost from './EditForumPost';
 
 class ForumPost extends Component {
 
     state = {
-        post: null
+        status: "show",
+        post: this.props.post
     }
 
     componentDidMount() {
@@ -20,7 +22,7 @@ class ForumPost extends Component {
     }
 
     updatePost = (post) => {
-        fetch (`http://localhost:3000/api/v1/posts/${this.state.post.attributes.id}`, {
+        fetch (`http://localhost:3000/api/v1/posts/${this.state.post.id}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json",
@@ -29,10 +31,18 @@ class ForumPost extends Component {
             body: JSON.stringify(post)
         })
         .then(resp => resp.json())
+        .then(json => this.setState({
+            post: json.data.attributes
+        }, () => this.handleRedirect())
+        )
+    }
+
+    handleRedirect = () => {
+        this.props.history.push(`/forum/${this.state.post.id}`)
     }
 
     deletePost = () => {
-        fetch (`http://localhost:3000/api/v1/posts/${this.state.post.attributes.id}`, {
+        fetch (`http://localhost:3000/api/v1/posts/${this.state.post.id}`, {
             method: "DELETE",
             headers: {
                 "content-type": "application/json",
@@ -42,11 +52,20 @@ class ForumPost extends Component {
         .then(resp => resp.json())
     }
 
+    handleEditBtnClick = () => {
+        this.setState({
+            status: "edit"
+        }, () => this.props.history.push(`/forum/${this.state.post.id}/edit`))
+    }
+
     renderActionButtons = () => {
         if (this.props.currentUser){
             if (this.props.currentUser.data.id == this.state.post.user_id) {
                 return (
                     <>
+                        <Link to={`/forum`}>
+                            <AwesomeButton type="secondary" size="small" style={{fontSize: '24px', margin: 30, width: '200px' }}>Back to forum</AwesomeButton>
+                        </Link>
                         <Link to={`/forum/${this.state.post.id}/edit`}>
                             <AwesomeButton type="secondary" size="medium" style={{fontSize: '24px', margin: 30 }}>Edit</AwesomeButton>
                         </Link>
@@ -54,30 +73,42 @@ class ForumPost extends Component {
                     </>
                 )
             }
+        } else {
+            return (
+                <Link to={`/forum`}>
+                    <AwesomeButton type="secondary" size="small" style={{fontSize: '24px', margin: 30, width: '200px' }}>Back to forum</AwesomeButton>
+                </Link>
+            )
         }
     }
 
     renderForumPost = () => {
         return (
-            this.state.post
-            ?
             <Container maxWidth="md" style={{marginTop: 50, textAlign: 'left'}}>
                 {this.renderActionButtons()}
                 <article className="markdown-body" style={{fontSize: 26}}>
                     <ReactMarkdown source={this.state.post.body} renderers={{code: CodeBlock}}/>
                 </article>
             </Container>
-            :
-            null
         )
+    }
+
+    renderEditForm = () => {
+        return <EditForumPost {...this.state.post} {...this.props} currentUser={this.props.currentUser} handleSubmit={this.updatePost} />
     }
 
     render() {
         return (
-            <Switch>
-                <Route exact path="/forum/:post" render={() => this.renderForumPost()} />
-                <Route exact path="/forum/:post/edit" render={() => this.renderEditForm()}/>
-            </Switch>
+            <>
+                <Route exact path="/forum/:post/edit" render={() => {
+                    return this.renderEditForm()
+                }} 
+                />
+                <Route exact path="/forum/:post" render={() => {
+                    return this.renderForumPost()
+                }}
+                />
+            </>
         )
     }
 }

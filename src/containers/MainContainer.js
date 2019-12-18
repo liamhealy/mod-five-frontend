@@ -4,7 +4,7 @@ import { AwesomeButton } from "react-awesome-button";
 import 'react-awesome-button/dist/themes/theme-blue.css';
 import Forum from './Forum';
 import NavBar from '../components/NavBar';
-import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 import SignUpForm from '../components/SignUpForm';
 
@@ -82,11 +82,10 @@ class MainContainer extends Component {
         return <SignUpForm handleSignUp={this.signUp} />
     }
 
-    renderForum = () => {
+    renderForum = (routerProps) => {
         return (
             <>
-                <NavBar currentUser={this.state.currentUser} />
-                <Forum currentUser={this.state.currentUser} />
+                <Forum currentUser={this.state.currentUser} selectPost={this.selectPost} routerProps={routerProps}/>
             </>
         )
     }
@@ -94,15 +93,12 @@ class MainContainer extends Component {
     render() {
         return (
             <>
-                <div>
-                    <Redirect to="/forum" />
-                    <Switch>
+                    <NavBar currentUser={this.state.currentUser} />
+                    <div>
                         <Route exact path="/login" render={this.renderLogin} />
                         <Route exact path="/signup" render={this.renderSignUp} />
-                        <Route exact path="/forum" render={this.renderForum} />
-                        <Route exact path="/forum/:post" render={this.renderForum} />
-                    </Switch>
-                </div>
+                        <Route path="/forum" render={(routerProps) => this.renderForum(routerProps)} />
+                    </div>
             </>
         )
     }
@@ -113,4 +109,4 @@ function msp(state) {
     return {user: state.user}
 }
 
-export default connect(msp)(withRouter(MainContainer))
+export default connect(msp)(MainContainer)
