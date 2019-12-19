@@ -18,10 +18,11 @@ class ForumPost extends Component {
         post: this.props.post
     }
 
-    componentDidMount() {
+    getPostOnEdgeCase() {
         fetch(`http://localhost:3000/api/v1/posts/${this.props.match.params.post}`)
         .then(resp => resp.json())
         .then(json => this.setState({ post: json.post }))
+        .then(() => this.renderForumPost())
     }
 
     deletePost = (post) => {
@@ -77,22 +78,27 @@ class ForumPost extends Component {
     }
 
     renderForumPost = () => {
-        return (
-            <Container maxWidth="md" style={{marginTop: 50, textAlign: 'left'}}>
-                {this.renderActionButtons()}
-                <Typography variant="h3" component="h3" gutterBottom>
-                    {this.props.post.title}
-                </Typography>
-                <Typography variant="h5" component="h5" gutterBottom>
-                    {this.props.post.description}
-                </Typography>
-                <Paper style={{ border: "5px solid #d0b400"}}>
-                    <article className="markdown-body" style={{margin: 20, fontSize: 26}}>
-                        <ReactMarkdown source={this.props.post.body} renderers={{code: CodeBlock}}/>
-                    </article>
-                </Paper>
-            </Container>
-        )
+        console.log("State :", this.state.post, "Props :", this.props.post)
+        if (this.state.post) {
+            return (
+                <Container maxWidth="md" style={{marginTop: 50, textAlign: 'left'}}>
+                    {this.renderActionButtons()}
+                    <Typography variant="h3" component="h3" gutterBottom>
+                        {this.state.post.title}
+                    </Typography>
+                    <Typography variant="h5" component="h5" gutterBottom>
+                        {this.state.post.description}
+                    </Typography>
+                    <Paper style={{ border: "5px solid #d0b400"}}>
+                        <article className="markdown-body" style={{margin: 20, fontSize: 26}}>
+                            <ReactMarkdown source={this.state.post.body} renderers={{code: CodeBlock}}/>
+                        </article>
+                    </Paper>
+                </Container>
+            )
+        } else {
+            this.getPostOnEdgeCase()
+        }
     }
 
     renderEditForm = () => {

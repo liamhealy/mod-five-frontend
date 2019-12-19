@@ -13,6 +13,7 @@ import 'react-awesome-button/dist/themes/theme-eric.css';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Snackbar from '@material-ui/core/Snackbar';
 import { withRouter } from 'react-router-dom';
 
 class CreateForumPost extends Component {

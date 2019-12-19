@@ -123,6 +123,7 @@ class MainContainer extends Component {
                             <Route exact path="/forum/:post/edit" render={(routerProps) => this.renderEditForm(routerProps)} />
                             <Route exact path="/forum/:post" render={(routerProps) => this.renderForumPost(routerProps)} />
                             <Route exact path="/forum" render={(routerProps) => this.renderForum(routerProps)} />
+                            <Redirect to="/forum" />
                         </Switch>
                     </div>
             </>

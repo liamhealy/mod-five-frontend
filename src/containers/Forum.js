@@ -27,20 +27,6 @@ class Forum extends Component{
         return this.state.posts.map(post => <ForumCard key={post.id} post={post} routerProps={this.props.routerProps} viewForumPost={this.props.viewForumPost} />)
     }
 
-    // deletePost = (post) => {
-    //     fetch (`http://localhost:3000/api/v1/posts/${post.id}`, {
-    //         method: "DELETE",
-    //         headers: {
-    //             "content-type": "application/json",
-    //             "accept": "application/json"
-    //         }
-    //     })
-    //     .then(resp => resp.json())
-    //     .then(json => this.setState({
-    //         posts: this.state.posts.filter(p => p.attributes.id !== post.id)
-    //     }, () => this.handleRedirect()))
-    // }
-
     handleRedirect = () => {
         this.setState({
             post: null
