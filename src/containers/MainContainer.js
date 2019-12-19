@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AwesomeButton } from "react-awesome-button";
 import 'react-awesome-button/dist/themes/theme-blue.css';
 import Forum from './Forum';
 import NavBar from '../components/NavBar';
@@ -61,22 +60,6 @@ class MainContainer extends Component {
                 pathname: `/forum/${this.state.post.id}`
             })
         })
-    }
-
-    renderLinks = () => {
-        return (
-            <ul style={{listStyle: 'none'}}>
-                <li style={{margin: 20}}>
-                    <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}}>Streams</AwesomeButton>
-                </li>
-                <li style={{margin: 20}}>
-                    <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}}>Games</AwesomeButton>
-                </li>
-                <li style={{margin: 20}}>
-                    <AwesomeButton type="secondary" size="large" style={{height: '60px', fontSize: '24px'}}>Forum</AwesomeButton>
-                </li>
-            </ul>
-        )
     }
 
     renderLogin = () => {

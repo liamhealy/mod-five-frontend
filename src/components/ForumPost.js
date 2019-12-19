@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import CodeBlock from './CodeBlock';
 import { AwesomeButton } from "react-awesome-button";
 import 'react-awesome-button/dist/themes/theme-eric.css';
-import { Route, Link, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import EditForumPost from './EditForumPost';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -53,7 +53,7 @@ class ForumPost extends Component {
                 return (
                     <>
                         <Link to={`/forum`}>
-                            <AwesomeButton type="secondary" size="small" style={{fontSize: '24px', margin: 30, width: '200px' }} >Back to forum</AwesomeButton>
+                            <AwesomeButton type="secondary" size="small" style={{fontSize: '24px', margin: 30, width: '250px' }} >Back to forum</AwesomeButton>
                         </Link>
                         <Link to={`/forum/${this.state.post.id}/edit`}>
                             <AwesomeButton type="secondary" size="medium" style={{fontSize: '24px', margin: 30 }}>Edit</AwesomeButton>
@@ -71,7 +71,7 @@ class ForumPost extends Component {
         } else {
             return (
                 <Link to={`/forum`}>
-                    <AwesomeButton type="secondary" size="small" style={{fontSize: '24px', margin: 30, width: '200px' }}>Back to forum</AwesomeButton>
+                    <AwesomeButton type="secondary" size="small" style={{fontSize: '24px', margin: 30, width: '250px' }}>Back to forum</AwesomeButton>
                 </Link>
             )
         }
@@ -89,11 +89,17 @@ class ForumPost extends Component {
                     <Typography variant="h5" component="h5" gutterBottom>
                         {this.state.post.description}
                     </Typography>
-                    <Paper style={{ border: "5px solid #d0b400"}}>
+                    <Paper style={{ border: "5px solid #95d44a"}}>
                         <article className="markdown-body" style={{margin: 20, fontSize: 26}}>
                             <ReactMarkdown source={this.state.post.body} renderers={{code: CodeBlock}}/>
                         </article>
                     </Paper>
+                    <Paper style={{ border: "5px solid grey", marginTop: "75px", marginLeft: "15px", marginRight: "15px"}}>
+                        <article className="markdown-body" style={{margin: 20, fontSize: 26}}>
+                            <ReactMarkdown source={"Responses will go here"} renderers={{code: CodeBlock}}/>
+                        </article>
+                    </Paper>
+                    
                 </Container>
             )
         } else {

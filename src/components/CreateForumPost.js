@@ -14,7 +14,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Snackbar from '@material-ui/core/Snackbar';
-import { withRouter } from 'react-router-dom';
 
 class CreateForumPost extends Component {
 
@@ -51,6 +50,24 @@ class CreateForumPost extends Component {
         .then(json => {
             this.props.viewForumPost(json.data.attributes)
         })
+        .then(() => {
+            return this.renderSnackBar()
+        })
+    }
+
+    renderSnackBar = () => {
+        return (
+            <Snackbar
+                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                key={undefined}
+                open={true}
+                autoHideDuration={5000}
+                ContentProps={{
+                'aria-describedby': 'message-id',
+                }}
+                message={<span id="message-id">Post successfully submitted!</span>}
+            />
+        )
     }
 
     render() {

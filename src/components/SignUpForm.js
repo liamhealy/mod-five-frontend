@@ -72,7 +72,7 @@ class SignUpForm extends Component {
                         <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}}>Sign Up</AwesomeButton>
                     </Grid>
                     <Grid item xs={6}>
-                        <AwesomeButton type="secondary" size="small" style={{width: '280px', height: '40px', fontSize: '18px'}} onPress={this.switchForm}>Already Have an Account?</AwesomeButton>
+                        <AwesomeButton type="primary" size="small" style={{width: '280px', height: '40px', fontSize: '18px'}} onPress={this.switchForm}>Already Have an Account?</AwesomeButton>
                     </Grid>
                 </Grid>
             </form>

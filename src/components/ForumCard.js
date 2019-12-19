@@ -25,7 +25,7 @@ export default function ForumCard(props) {
     <div className={classes.root}>
       <Grid container spacing={8}>
         <Grid item xs={3}>
-          <Paper className={classes.paper} style={{boxShadow: '5px 5px #d0b400', borderColor: "grey"}}>
+          <Paper className={classes.paper} style={{boxShadow: '5px 5px lightgrey', borderColor: "grey"}}>
             <Typography variant="h6" component="h6" gutterBottom>
                 {user.username}
             </Typography>
@@ -35,7 +35,7 @@ export default function ForumCard(props) {
           </Paper>
         </Grid>
         <Grid item xs={8}>
-          <Paper className={classes.paper} style={{textAlign: 'left', boxShadow: '5px 5px #d0b400'}}>
+          <Paper className={classes.paper} style={{textAlign: 'left', boxShadow: '5px 5px lightgrey'}}>
             <Typography variant="h5" component="h5" gutterBottom>
                 {post.title}
             </Typography>

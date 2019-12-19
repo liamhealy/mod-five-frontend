@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import ForumCard from '../components/ForumCard';
-import ForumPost from '../components/ForumPost';
 import Container from '@material-ui/core/Container';
 import { AwesomeButton } from "react-awesome-button";
 import 'react-awesome-button/dist/themes/theme-blue.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Switch, Link, Route, withRouter } from 'react-router-dom';
-import CreateForumPost from '../components/CreateForumPost';
+import { Link, withRouter } from 'react-router-dom';
 
 class Forum extends Component{
 
@@ -48,7 +46,7 @@ class Forum extends Component{
                 {this.props.currentUser
                 ?
                 <Link to="/forum/new">
-                    <AwesomeButton type="secondary" size="small" style={{ marginTop: 20, width: '280px', height: '40px', fontSize: '18px'}}>New Post</AwesomeButton>
+                    <AwesomeButton type="primary" size="small" style={{ marginTop: 20, width: '280px', height: '40px', fontSize: '18px'}}>New Post</AwesomeButton>
                 </Link>
                 :
                 null

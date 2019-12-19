@@ -32,11 +32,11 @@ class LoginForm extends Component {
             pathname: '/signup'
         })
     }
-    
+
     render() {
         return (
             <>
-                <AwesomeButton type="secondary" size="small" style={{width: '280px', height: '40px', fontSize: '18px'}} onPress={this.switchForm}>Create an Account</AwesomeButton>
+                <AwesomeButton type="primary" size="small" style={{width: '280px', height: '40px', fontSize: '18px'}} onPress={this.switchForm}>Create an Account</AwesomeButton>
                 <form onSubmit={this.handleSubmit}>
                     <Grid
                         container
