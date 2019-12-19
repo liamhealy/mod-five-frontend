@@ -80,7 +80,6 @@ class ForumPost extends Component {
     }
 
     renderForumPost = () => {
-        console.log(this.state.post)
         if (this.state.post) {
             return (
                 <Container maxWidth="md" style={{marginTop: 50, textAlign: 'left'}}>
@@ -96,7 +95,7 @@ class ForumPost extends Component {
                             <ReactMarkdown source={this.state.post.body} renderers={{code: CodeBlock}}/>
                         </article>
                     </Paper>
-                    {this.props.currentUser 
+                    {this.props.currentUser
                     ?
                     this.renderResponseForm()
                     :
