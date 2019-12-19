@@ -104,7 +104,7 @@ class MainContainer extends Component {
                             <Route exact path="/signup" render={this.renderSignUp} />
                             <Route path="/forum/new" render={(routerProps) => this.renderCreateForm(routerProps)} />
                             <Route exact path="/forum/:post/edit" render={(routerProps) => this.renderEditForm(routerProps)} />
-                            <Route exact path="/forum/:post" render={(routerProps) => this.renderForumPost(routerProps)} />
+                            <Route path="/forum/:post" render={(routerProps) => this.renderForumPost(routerProps)} />
                             <Route exact path="/forum" render={(routerProps) => this.renderForum(routerProps)} />
                             <Redirect to="/forum" />
                         </Switch>
