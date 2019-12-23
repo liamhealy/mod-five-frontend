@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import 'react-awesome-button/dist/themes/theme-blue.css';
 import Forum from './Forum';
 import NavBar from '../components/NavBar';
 import { Route, Redirect, withRouter, Switch } from 'react-router-dom';
@@ -9,6 +8,7 @@ import SignUpForm from '../components/SignUpForm';
 import ForumPost from '../components/ForumPost';
 import CreateForumPost from '../components/CreateForumPost';
 import EditForumPost from '../components/EditForumPost';
+import Landing from '../components/Landing';
 
 class MainContainer extends Component {
 
@@ -97,22 +97,22 @@ class MainContainer extends Component {
     render() {
         return (
             <>
-                    <NavBar currentUser={this.state.currentUser} />
-                    <div>
-                        <Switch>
-                            <Route exact path="/login" render={this.renderLogin} />
-                            <Route exact path="/signup" render={this.renderSignUp} />
-                            <Route path="/forum/new" render={(routerProps) => this.renderCreateForm(routerProps)} />
-                            <Route exact path="/forum/:post/edit" render={(routerProps) => this.renderEditForm(routerProps)} />
-                            <Route path="/forum/:post" render={(routerProps) => this.renderForumPost(routerProps)} />
-                            <Route exact path="/forum" render={(routerProps) => this.renderForum(routerProps)} />
-                            <Redirect to="/forum" />
-                        </Switch>
-                    </div>
+                <NavBar currentUser={this.state.currentUser} />
+                <div>
+                    <Switch>
+                        <Route exact path="/" component={Landing} />
+                        <Route exact path="/login" render={this.renderLogin} />
+                        <Route exact path="/signup" render={this.renderSignUp} />
+                        <Route path="/forum/new" render={(routerProps) => this.renderCreateForm(routerProps)} />
+                        <Route exact path="/forum/:post/edit" render={(routerProps) => this.renderEditForm(routerProps)} />
+                        <Route path="/forum/:post" render={(routerProps) => this.renderForumPost(routerProps)} />
+                        <Route exact path="/forum" render={(routerProps) => this.renderForum(routerProps)} />
+                        <Redirect to="/forum" />
+                    </Switch>
+                </div>
             </>
         )
     }
-
 }
 // twitch url: https://api.twitch.tv/kraken/users/44322889?client_id=XXXXX
 function msp(state) {

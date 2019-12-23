@@ -95,13 +95,13 @@ class ForumPost extends Component {
                             <ReactMarkdown source={this.state.post.body} renderers={{code: CodeBlock}}/>
                         </article>
                     </Paper>
+                    {this.renderResponses()}
                     {this.props.currentUser
                     ?
                     this.renderResponseForm()
                     :
                     null
                     }
-                    {this.renderResponses()}
                 </Container>
             )
         } else {
@@ -110,7 +110,7 @@ class ForumPost extends Component {
     }
 
     renderResponses = () => {
-        return this.state.responses.map(response => <Response key={response.response.id} response={response.response} user={response.user} />)
+        return this.state.responses.map(response => <Response key={response.response.id} response={response.response} user={response.user} currentUser={this.props.currentUser} />)
     }
 
     renderResponseForm = () => {

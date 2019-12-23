@@ -6,13 +6,14 @@ import "ace-builds/src-noconflict/mode-markdown";
 import "ace-builds/src-noconflict/theme-textmate";
 import { AwesomeButton } from "react-awesome-button";
 import { withRouter } from 'react-router-dom';
+import Response from './Response';
 
 class ResponseForm extends Component {
 
     state = {
         post_id: this.props.postId,
         user_id: this.props.userId,
-        body: ''
+        body: this.props.body ? this.props.body : ''
     }
 
     handleAceChange = (e) => {
@@ -21,8 +22,7 @@ class ResponseForm extends Component {
         })
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault()
+    handlePost = () => {
         fetch('http://localhost:3000/api/v1/responses', {
             method: "POST",
             headers: {
@@ -33,6 +33,15 @@ class ResponseForm extends Component {
         })
         .then(resp => resp.json())
         .then(json => this.props.onResponseSubmit(json))
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault()
+        this.props.editing === true
+        ?
+        this.props.handlePatch(this.state)
+        :
+        this.handlePost()
     }
 
     render() {
