@@ -64,7 +64,7 @@ class MainContainer extends Component {
 
     renderLogin = () => {
         if (this.state.currentUser) {
-            return <Redirect to="/forum" />
+            return <Redirect to="/" />
         }
 
         return <LoginForm handleSignIn={this.signIn} />
@@ -72,7 +72,7 @@ class MainContainer extends Component {
 
     renderSignUp = () => {
         if (this.state.currentUser) {
-            return <Redirect to="/forum" />
+            return <Redirect to="/" />
         }
 
         return <SignUpForm handleSignUp={this.signUp} />
