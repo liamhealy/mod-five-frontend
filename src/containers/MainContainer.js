@@ -9,6 +9,7 @@ import ForumPost from '../components/ForumPost';
 import CreateForumPost from '../components/CreateForumPost';
 import EditForumPost from '../components/EditForumPost';
 import Landing from '../components/Landing';
+import Streams from './Streams';
 
 class MainContainer extends Component {
 
@@ -107,6 +108,7 @@ class MainContainer extends Component {
                         <Route exact path="/forum/:post/edit" render={(routerProps) => this.renderEditForm(routerProps)} />
                         <Route path="/forum/:post" render={(routerProps) => this.renderForumPost(routerProps)} />
                         <Route exact path="/forum" render={(routerProps) => this.renderForum(routerProps)} />
+                        <Route exact path="/streams" component={Streams} />
                         <Redirect to="/forum" />
                     </Switch>
                 </div>
