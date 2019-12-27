@@ -4,22 +4,27 @@ import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import { AwesomeButton } from "react-awesome-button";
+import { withRouter } from 'react-router-dom';
 import 'react-awesome-button/dist/themes/theme-rickiest.css';
 
 
 class NavBar extends Component {
 
+    handleRedirect = (path) => {
+        this.props.history.push(`/${path}`)
+    }
+
     renderLinks = () => {
         return (
             <ul style={{listStyle: 'none'}}>
                 <li style={{margin: 20}}>
-                    <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}}>Streams</AwesomeButton>
+                    <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}} onPress={() => this.handleRedirect("streams")}>Streams</AwesomeButton>
                 </li>
                 <li style={{margin: 20}}>
-                    <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}}>Games</AwesomeButton>
+                    <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}} onPress={() => this.handleRedirect("")}>Games</AwesomeButton>
                 </li>
                 <li style={{margin: 20}}>
-                    <AwesomeButton type="link" size="large" style={{height: '60px', fontSize: '24px'}}>Forum</AwesomeButton>
+                    <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}} onPress={() => this.handleRedirect("forum")}>Forum</AwesomeButton>
                 </li>
             </ul>
         )
@@ -57,4 +62,4 @@ function msp(state) {
     return {user: state.user}
 }
 
-export default connect(msp)(NavBar)
+export default connect(msp)(withRouter(NavBar))

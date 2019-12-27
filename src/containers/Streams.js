@@ -25,9 +25,13 @@ class Streams extends Component {
         .then(json => this.setState({streams: json.streams, pagination: json.pagination}))
     }
 
+    viewStreamer = (streamer) => {
+        console.log("Clicked on", streamer)
+    }
+
     renderCards = () => {
         return (
-            this.state.streams.map(stream => <StreamCard key={stream._id} {...stream} />)
+            this.state.streams.map(stream => <StreamCard key={stream._id} {...stream} handleClick={this.viewStreamer} />)
         )
     }
 
