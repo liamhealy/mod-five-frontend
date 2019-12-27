@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { AwesomeButton } from "react-awesome-button";
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';

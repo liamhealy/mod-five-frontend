@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { clientID } from '../api';
+import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import StreamCard from '../components/StreamCard';
 
@@ -27,6 +28,7 @@ class Streams extends Component {
 
     viewStreamer = (streamer) => {
         console.log("Clicked on", streamer)
+        this.props.history.push(`/streams/${streamer}`)
     }
 
     renderCards = () => {
@@ -52,4 +54,4 @@ class Streams extends Component {
     }
 }
 
-export default Streams
+export default withRouter(Streams)

@@ -9,7 +9,8 @@ import ForumPost from '../components/ForumPost';
 import CreateForumPost from '../components/CreateForumPost';
 import EditForumPost from '../components/EditForumPost';
 import Landing from '../components/Landing';
-import Streams from './Streams';
+import StreamData from './StreamData';
+import Stream from '../components/Stream';
 
 class MainContainer extends Component {
 
@@ -95,6 +96,10 @@ class MainContainer extends Component {
         return <EditForumPost currentUser={this.state.currentUser} viewForumPost={this.viewForumPost} post={this.state.post} routerProps={routerProps} />
     }
 
+    renderStream = (routerProps) => {
+        return <Stream routerProps={routerProps}/>
+    }
+
     render() {
         return (
             <>
@@ -108,7 +113,8 @@ class MainContainer extends Component {
                         <Route exact path="/forum/:post/edit" render={(routerProps) => this.renderEditForm(routerProps)} />
                         <Route path="/forum/:post" render={(routerProps) => this.renderForumPost(routerProps)} />
                         <Route exact path="/forum" render={(routerProps) => this.renderForum(routerProps)} />
-                        <Route exact path="/streams" component={Streams} />
+                        <Route exact path="/streams" component={StreamData} />
+                        <Route exact path="/streams/:username" render={(routerProps) => this.renderStream(routerProps)} />
                         <Redirect to="/forum" />
                     </Switch>
                 </div>
