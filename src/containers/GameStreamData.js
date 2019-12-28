@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { clientID } from '../api';
 import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import StreamCard from '../components/StreamCard';
 
-class StreamData extends PureComponent {
+class GameStreamData extends Component {
 
     state = {
         streams: null,
@@ -16,7 +16,7 @@ class StreamData extends PureComponent {
     }
 
     getStreams = () => {
-        fetch(`https://api.twitch.tv/helix/streams`, {
+        fetch(`https://api.twitch.tv/helix/streams?${this.props.type}`, {
             headers: {
                 'Accept': 'application/vnd.twitchtv.v5+json',
                 "Client-ID": clientID
@@ -52,4 +52,4 @@ class StreamData extends PureComponent {
     }
 }
 
-export default withRouter(StreamData)
+export default withRouter(GameStreamData)

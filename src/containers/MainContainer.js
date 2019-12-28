@@ -11,6 +11,8 @@ import EditForumPost from '../components/EditForumPost';
 import Landing from '../components/Landing';
 import StreamData from './StreamData';
 import Stream from '../components/Stream';
+import GameData from './GameData';
+import GameStreamData from './GameStreamData';
 
 class MainContainer extends Component {
 
@@ -96,6 +98,18 @@ class MainContainer extends Component {
         return <EditForumPost currentUser={this.state.currentUser} viewForumPost={this.viewForumPost} post={this.state.post} routerProps={routerProps} />
     }
 
+    renderStreamData = (type) => {
+        return <StreamData type={type} />
+    }
+
+    renderGameStreamData = (type) => {
+        return <GameStreamData type={type} />
+    }
+
+    renderGameData = (type) => {
+        return <GameData type={type} />
+    }
+
     renderStream = (routerProps) => {
         return <Stream routerProps={routerProps}/>
     }
@@ -113,8 +127,10 @@ class MainContainer extends Component {
                         <Route exact path="/forum/:post/edit" render={(routerProps) => this.renderEditForm(routerProps)} />
                         <Route path="/forum/:post" render={(routerProps) => this.renderForumPost(routerProps)} />
                         <Route exact path="/forum" render={(routerProps) => this.renderForum(routerProps)} />
-                        <Route exact path="/streams" component={StreamData} />
+                        <Route exact path="/streams" render={() => this.renderStreamData("streams")} />
+                        <Route exact path="/games" render={() => this.renderGameData("games/top")} />
                         <Route exact path="/streams/:username" render={(routerProps) => this.renderStream(routerProps)} />
+                        <Route exact path="/games/:title" render={(routerProps) => this.renderGameStreamData(routerProps.match.params.title)} />
                         <Redirect to="/forum" />
                     </Switch>
                 </div>
@@ -122,7 +138,6 @@ class MainContainer extends Component {
         )
     }
 }
-// twitch url: https://api.twitch.tv/kraken/users/44322889?client_id=XXXXX
 function msp(state) {
     return {user: state.user}
 }

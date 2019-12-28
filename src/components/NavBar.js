@@ -21,7 +21,7 @@ class NavBar extends Component {
                     <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}} onPress={() => this.handleRedirect("streams")}>Streams</AwesomeButton>
                 </li>
                 <li style={{margin: 20}}>
-                    <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}} onPress={() => this.handleRedirect("")}>Games</AwesomeButton>
+                    <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}} onPress={() => this.handleRedirect("games")}>Games</AwesomeButton>
                 </li>
                 <li style={{margin: 20}}>
                     <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}} onPress={() => this.handleRedirect("forum")}>Forum</AwesomeButton>
