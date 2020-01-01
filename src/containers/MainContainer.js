@@ -56,6 +56,10 @@ class MainContainer extends Component {
         })
     }
 
+    filterFollowers = () => {
+        this.signIn(this.state.currentUser.data.attributes.username)
+    }
+
     viewForumPost = (post) => {
         this.setState({
             post: post
@@ -111,10 +115,11 @@ class MainContainer extends Component {
     }
 
     renderStream = (routerProps) => {
-        return <Stream routerProps={routerProps}/>
+        return <Stream routerProps={routerProps} currentUser={this.state.currentUser} filterFollowers={this.filterFollowers} />
     }
 
     render() {
+        console.log(this.state.currentUser)
         return (
             <>
                 <NavBar currentUser={this.state.currentUser} />
