@@ -36,7 +36,6 @@ class LoginForm extends Component {
     render() {
         return (
             <>
-                <AwesomeButton type="primary" size="small" style={{width: '280px', height: '40px', fontSize: '18px'}} onPress={this.switchForm}>Create an Account</AwesomeButton>
                 <form onSubmit={this.handleSubmit}>
                     <Grid
                         container
@@ -44,7 +43,7 @@ class LoginForm extends Component {
                         direction="column"
                         alignItems="center"
                         justify="center"
-                        style={{ minHeight: '100vh' }}
+                        style={{ minHeight: '50vh' }}
                     >
                         <Grid item xs={6}>
                             <Typography variant="h3" component="h2" gutterBottom>
@@ -62,6 +61,7 @@ class LoginForm extends Component {
                         <Grid item xs={6}>
                             <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}}>Login</AwesomeButton>
                         </Grid>   
+                        <AwesomeButton type="primary" size="small" style={{width: '280px', height: '40px', fontSize: '18px'}} onPress={this.switchForm}>Create an Account</AwesomeButton>
                     </Grid>
                 </form>
             </>

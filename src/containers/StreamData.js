@@ -3,6 +3,7 @@ import { clientID } from '../api';
 import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import StreamCard from '../components/StreamCard';
+import Typography from '@material-ui/core/Typography';
 
 class StreamData extends PureComponent {
 
@@ -39,6 +40,9 @@ class StreamData extends PureComponent {
     render() {
         return (
             <>
+                <Typography variant="h3">
+                    Currently Streaming
+                </Typography>
                 <Grid container spacing={3} style={{margin: '5%', maxWidth: '90%'}}>
                     {this.state.streams
                     ?

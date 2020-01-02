@@ -13,6 +13,7 @@ import StreamData from './StreamData';
 import Stream from '../components/Stream';
 import GameData from './GameData';
 import GameStreamData from './GameStreamData';
+import Profile from '../components/Profile';
 
 class MainContainer extends Component {
 
@@ -118,6 +119,10 @@ class MainContainer extends Component {
         return <Stream routerProps={routerProps} currentUser={this.state.currentUser} filterFollowers={this.filterFollowers} />
     }
 
+    renderProfile = () => {
+        return <Profile currentUser={this.state.currentUser} viewForumPost={this.viewForumPost} />
+    }
+
     render() {
         console.log(this.state.currentUser)
         return (
@@ -136,6 +141,7 @@ class MainContainer extends Component {
                         <Route exact path="/games" render={() => this.renderGameData("games/top")} />
                         <Route exact path="/streams/:username" render={(routerProps) => this.renderStream(routerProps)} />
                         <Route exact path="/games/:title" render={(routerProps) => this.renderGameStreamData(routerProps.match.params.title)} />
+                        <Route exact path="/user/:username" render={() => this.renderProfile()} />
                         <Redirect to="/forum" />
                     </Switch>
                 </div>

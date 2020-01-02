@@ -214,18 +214,41 @@ class Stream extends Component {
     }
 
     handleFollow = () => {
-        fetch('http://localhost:3000/api/v1/stream_followers', {
-            method: "POST",
+        if (this.props.currentUser) {
+            fetch('http://localhost:3000/api/v1/stream_followers', {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "accept": "application/json"
+                },
+                body: JSON.stringify({
+                    user_id: this.props.currentUser.data.id,
+                    streamer_name: this.props.routerProps.match.params.username.toLowerCase()
+                })
+            })
+            .then(resp => resp.json())
+            .then(() => this.getStreamerAndFollowers())
+        } else {
+            this.props.history.push('/login');
+        }
+    }
+
+    handleUnfollow = () => {
+        let tempId = this.state.streamFollowerId
+        fetch(`http://localhost:3000/api/v1/stream_followers/${this.state.streamFollowerId.id}`, {
+            method: "DELETE",
             headers: {
                 "content-type": "application/json",
                 "accept": "application/json"
-            },
-            body: JSON.stringify({
-                user_id: this.props.currentUser.data.id,
-                streamer_name: this.props.routerProps.match.params.username.toLowerCase()
-            })
+            }
         })
         .then(resp => resp.json())
+        .then(json => {
+            this.setState({
+                streamFollowerId: "none",
+                following: false
+            })
+        })
         .then(() => this.getStreamerAndFollowers())
     }
 
@@ -256,13 +279,13 @@ class Stream extends Component {
         //     this.getStreamerAndFollowers()
         // }
         return (
-            <Paper style={{ border: "5px solid #b6e986", marginTop: "75px", marginLeft: "15px", marginRight: "15px"}}>
-                <ReactTwitchEmbedVideo channel={this.props.routerProps.match.params.username} width='100%'/>
-                {/* {this.state.streamer && this.props.currentUser ? this.renderActionButtons() : null} */}
-                {/* {this.props.currentUser ? this.renderActionButtons() : null} */}
-                {/* {this.getStreamerAndFollowers()} */}
-                {this.state.streamer ? this.renderActionButtons() : null}
-            </Paper>
+                <Paper style={{ border: "5px solid #b6e986", marginTop: "75px", marginLeft: "15px", marginRight: "15px"}}>
+                    <ReactTwitchEmbedVideo channel={this.props.routerProps.match.params.username} width='100%' height={700}/>
+                    {/* {this.state.streamer && this.props.currentUser ? this.renderActionButtons() : null} */}
+                    {/* {this.props.currentUser ? this.renderActionButtons() : null} */}
+                    {/* {this.getStreamerAndFollowers()} */}
+                    {this.state.streamer ? this.renderActionButtons() : null}
+                </Paper>
         )
     }
 }

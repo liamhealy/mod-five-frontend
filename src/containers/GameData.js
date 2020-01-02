@@ -3,6 +3,7 @@ import { clientID } from '../api';
 import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import GameCard from '../components/GameCard';
+import Typography from '@material-ui/core/Typography';
 
 class Streams extends Component {
 
@@ -38,6 +39,9 @@ class Streams extends Component {
     render() {
         return (
             <>
+                <Typography variant="h3">
+                    Top Games and Categories
+                </Typography>
                 <Grid container spacing={3} style={{margin: '5%', maxWidth: '90%'}}>
                     {this.state.games
                     ?

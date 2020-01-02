@@ -44,7 +44,7 @@ class SignUpForm extends Component {
                     direction="column"
                     alignItems="center"
                     justify="center"
-                    style={{ minHeight: '100vh', flexGrow: 1 }}
+                    style={{ minHeight: '50vh', flexGrow: 1 }}
                 >
                     <Grid item xs={12}>
                         <Typography variant="h3" component="h2" gutterBottom>

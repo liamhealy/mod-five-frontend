@@ -17,15 +17,23 @@ class NavBar extends Component {
     renderLinks = () => {
         return (
             <ul style={{listStyle: 'none'}}>
-                <li style={{margin: 20}}>
+                <li>
                     <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}} onPress={() => this.handleRedirect("streams")}>Streams</AwesomeButton>
                 </li>
-                <li style={{margin: 20}}>
+                <li style={{marginLeft: 20}}>
                     <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}} onPress={() => this.handleRedirect("games")}>Games</AwesomeButton>
                 </li>
-                <li style={{margin: 20}}>
+                <li style={{marginLeft: 20}}>
                     <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}} onPress={() => this.handleRedirect("forum")}>Forum</AwesomeButton>
                 </li>
+                {this.props.currentUser 
+                ?
+                <li style={{marginRight: 20, marginLeft: 20}}>
+                    <AwesomeButton type="primary" size="large" style={{height: '60px', fontSize: '24px'}} onPress={() => this.handleRedirect(`user/${this.props.currentUser.data.attributes.username}`)}>My Profile</AwesomeButton>
+                </li>
+                :
+                null
+                }
             </ul>
         )
     }
@@ -41,7 +49,7 @@ class NavBar extends Component {
                         {this.props.currentUser ?
                         null
                         :
-                        <div style={{float: "left"}}>
+                        <div style={{marginLeft: 1300}}>
                             <Typography variant="h6">
                                 <Link to="/login" props="this is a prop">
                                     <AwesomeButton type="secondary" size="small" style={{height: '30px'}}>Login</AwesomeButton>
